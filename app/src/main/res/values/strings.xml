@@ -3,4 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_finished">Finished</string>
     <string name="title_upcoming">Upcoming</string>
+    <string name="img_content">Image Event</string>
+    <string name="title_event">Judul Event</string>
 </resources>

@@ -22,7 +22,7 @@
             android:id="@+id/img_event"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:contentDescription="title"
+            android:contentDescription="@string/img_content"
             android:scaleType="centerCrop"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
             android:textStyle="italic"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/img_event"
-            tools:text="name" />
+            tools:text="@string/title_event" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

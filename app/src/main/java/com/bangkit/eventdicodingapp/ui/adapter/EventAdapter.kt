@@ -13,8 +13,8 @@ class EventAdapter: ListAdapter<ListEventsItem, EventAdapter.MyViewHolder>(DIFF_
     class MyViewHolder(private val binding: ItemEventBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem){
             Glide.with(binding.root.context)
-                .load(event.imageLogo) // URL gambar dari objek review
-                .into(binding.imgEvent) // Target ImageView untuk gambar
+                .load(event.imageLogo)
+                .into(binding.imgEvent)
             binding.tvEvent.text = event.name
         }
     }
