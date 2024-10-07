@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">EventDicodingApp</string>
+    <string name="title_home">Home</string>
+    <string name="title_finished">Finished</string>
+    <string name="title_upcoming">Upcoming</string>
+</resources>
