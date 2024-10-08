@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentUpcomingBinding
 import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
 import com.bangkit.eventdicodingapp.ui.model.UpcomingViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class UpcomingFragment : Fragment() {
 
@@ -39,6 +38,10 @@ class UpcomingFragment : Fragment() {
 
         upcomingViewModel.listEvent.observe(viewLifecycleOwner, Observer { eventList ->
             setEventData(eventList)
+        })
+
+        upcomingViewModel.snackbarText.observe(viewLifecycleOwner, Observer { snakbarText->
+            Snackbar.make(requireActivity().window.decorView.rootView, snakbarText, Snackbar.LENGTH_SHORT).show()
         })
 
         upcomingViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->

@@ -14,6 +14,7 @@ import com.bangkit.eventdicodingapp.databinding.FragmentHomeBinding
 import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
 import com.bangkit.eventdicodingapp.ui.adapter.EventFinishedAdapter
 import com.bangkit.eventdicodingapp.ui.model.HomeViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
 
@@ -45,6 +46,10 @@ class HomeFragment : Fragment() {
 
         homeViewModel.listEventFinished.observe(viewLifecycleOwner, Observer { eventListFinished ->
             setEventDataFinished(eventListFinished)
+        })
+
+        homeViewModel.snackbarText.observe(viewLifecycleOwner, Observer { snakbarText->
+            Snackbar.make(requireActivity().window.decorView.rootView, snakbarText, Snackbar.LENGTH_SHORT).show()
         })
 
         homeViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->

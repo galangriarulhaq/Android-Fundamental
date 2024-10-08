@@ -1,6 +1,5 @@
 package com.bangkit.eventdicodingapp.ui.model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,14 +12,15 @@ import retrofit2.Response
 
 class UpcomingViewModel : ViewModel() {
 
-    companion object {
-        private const val TAG = "EventModel"
-    }
+
     private val _listEvent = MutableLiveData<List<ListEventsItem>>()
     val listEvent: LiveData<List<ListEventsItem>> = _listEvent
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _snackbarText = MutableLiveData<String>()
+    val snackbarText: LiveData<String> = _snackbarText
 
     init {
         fetchEvent()
@@ -39,12 +39,12 @@ class UpcomingViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _listEvent.value = responseBody?.listEvents
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _snackbarText.value = response.body()?.message
                 }
             }
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                _snackbarText.value = "Network Error : ${t.message.toString()}"
             }
         })
     }

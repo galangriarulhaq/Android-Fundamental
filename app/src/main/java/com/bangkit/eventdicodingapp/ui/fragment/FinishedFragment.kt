@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentFinishedBinding
-import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
 import com.bangkit.eventdicodingapp.ui.adapter.EventFinishedAdapter
 import com.bangkit.eventdicodingapp.ui.model.FinishedViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class FinishedFragment : Fragment() {
 
@@ -40,6 +38,10 @@ class FinishedFragment : Fragment() {
 
         finishedViewModel.listEvent.observe(viewLifecycleOwner, Observer { eventList ->
             setEventData(eventList)
+        })
+
+        finishedViewModel.snackbarText.observe(viewLifecycleOwner, Observer { snakbarText->
+            Snackbar.make(requireActivity().window.decorView.rootView, snakbarText, Snackbar.LENGTH_SHORT).show()
         })
 
         finishedViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->

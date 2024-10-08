@@ -1,6 +1,6 @@
 package com.bangkit.eventdicodingapp.ui.model
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,9 +13,6 @@ import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
 
-    companion object {
-        private const val TAG = "EventModel"
-    }
 
     private val _listEventUpcoming = MutableLiveData<List<ListEventsItem>>()
     val listEventUpcoming: LiveData<List<ListEventsItem>> = _listEventUpcoming
@@ -25,6 +22,9 @@ class HomeViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _snackbarText = MutableLiveData<String>()
+    val snackbarText: LiveData<String> = _snackbarText
 
     init {
         fetchEventUpcoming()
@@ -44,12 +44,12 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _listEventUpcoming.value = responseBody?.listEvents
                 } else {
-                    Log.e(HomeViewModel.TAG, "onFailure: ${response.message()}")
+                    _snackbarText.value = response.body()?.message
                 }
             }
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(HomeViewModel.TAG, "onFailure: ${t.message.toString()}")
+                _snackbarText.value = "Network Error : ${t.message.toString()}"
             }
         })
     }
@@ -69,12 +69,12 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _listEventFinished.value = responseBody?.listEvents
                 } else {
-                    Log.e(HomeViewModel.TAG, "onFailure: ${response.message()}")
+                    _snackbarText.value = response.body()?.message
                 }
             }
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(HomeViewModel.TAG, "onFailure: ${t.message.toString()}")
+                _snackbarText.value = "Network Error : ${t.message.toString()}"
             }
         })
     }
