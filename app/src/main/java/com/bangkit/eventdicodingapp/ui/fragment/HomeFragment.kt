@@ -35,9 +35,9 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val layoutManagerUpcoming = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerUpcoming = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvEventUpcoming.layoutManager = layoutManagerUpcoming
-        val layoutManagerFinished = LinearLayoutManager(requireContext())
+        val layoutManagerFinished = LinearLayoutManager(requireActivity())
         binding.rvEventFinished.layoutManager = layoutManagerFinished
 
         homeViewModel.listEventUpcoming.observe(viewLifecycleOwner, Observer { eventListUpcoming ->

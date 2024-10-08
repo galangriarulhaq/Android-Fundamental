@@ -1,4 +1,4 @@
-package com.bangkit.eventdicodingapp
+package com.bangkit.eventdicodingapp.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

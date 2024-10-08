@@ -33,7 +33,7 @@ class UpcomingFragment : Fragment() {
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val layoutManager = LinearLayoutManager(requireContext())
+        val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvEvent.layoutManager = layoutManager
 
         upcomingViewModel.listEvent.observe(viewLifecycleOwner, Observer { eventList ->
