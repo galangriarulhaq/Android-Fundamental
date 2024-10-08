@@ -41,7 +41,13 @@ class FinishedFragment : Fragment() {
         })
 
         finishedViewModel.snackbarText.observe(viewLifecycleOwner, Observer { snakbarText->
-            Snackbar.make(requireActivity().window.decorView.rootView, snakbarText, Snackbar.LENGTH_SHORT).show()
+            snakbarText.getContentIfNotHandled()?.let { snackBarText ->
+                Snackbar.make(
+                    requireActivity().window.decorView.rootView,
+                    snackBarText,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         })
 
         finishedViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.bangkit.eventdicodingapp.data.response.EventResponse
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.data.retrofit.ApiConfig
+import com.bangkit.eventdicodingapp.util.EventWrapper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,8 +21,8 @@ class FinishedViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _snackbarText = MutableLiveData<String>()
-    val snackbarText: LiveData<String> = _snackbarText
+    private val _snackbarText = MutableLiveData<EventWrapper<String>>()
+    val snackbarText: LiveData<EventWrapper<String>> = _snackbarText
 
     init {
         fetchEvent()
@@ -40,12 +41,12 @@ class FinishedViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _listEvent.value = responseBody?.listEvents
                 } else {
-                    _snackbarText.value = response.body()?.message
+                    _snackbarText.value = EventWrapper(response.body()?.message.toString())
                 }
             }
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
-                _snackbarText.value = "Network Error : ${t.message.toString()}"
+                _snackbarText.value = EventWrapper("Network Error : ${t.message.toString()}")
             }
         })
     }
