@@ -1,5 +1,6 @@
 package com.bangkit.eventdicodingapp.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentUpcomingBinding
+import com.bangkit.eventdicodingapp.ui.DetailActivity
 import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
 import com.bangkit.eventdicodingapp.ui.model.UpcomingViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -58,7 +60,7 @@ class UpcomingFragment : Fragment() {
     }
 
     private fun setEventData(listEvent: List<ListEventsItem>) {
-        val adapter = EventAdapter()
+        val adapter = EventAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter
     }
@@ -71,4 +73,12 @@ class UpcomingFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun navigateToDetail(eventId: Int) {
+        val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+            putExtra("EVENT_ID", eventId)
+        }
+        startActivity(intent)
+    }
+
 }

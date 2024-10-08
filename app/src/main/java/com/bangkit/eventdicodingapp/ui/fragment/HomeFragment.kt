@@ -1,5 +1,6 @@
 package com.bangkit.eventdicodingapp.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentHomeBinding
+import com.bangkit.eventdicodingapp.ui.DetailActivity
 import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
 import com.bangkit.eventdicodingapp.ui.adapter.EventFinishedAdapter
 import com.bangkit.eventdicodingapp.ui.model.HomeViewModel
@@ -66,13 +68,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEventDataUpcoming(listEvent: List<ListEventsItem>) {
-        val adapter = EventFinishedAdapter()
+        val adapter = EventFinishedAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent.take(5))
         binding.rvEventUpcoming.adapter = adapter
     }
 
     private fun setEventDataFinished(listEvent: List<ListEventsItem>) {
-        val adapter = EventAdapter()
+        val adapter = EventAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent.take(5))
         binding.rvEventFinished.adapter = adapter
     }
@@ -85,4 +87,12 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun navigateToDetail(eventId: Int) {
+        val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+            putExtra("EVENT_ID", eventId)
+        }
+        startActivity(intent)
+    }
+
 }

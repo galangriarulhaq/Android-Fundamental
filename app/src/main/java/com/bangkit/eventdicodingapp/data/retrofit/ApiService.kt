@@ -1,8 +1,10 @@
 package com.bangkit.eventdicodingapp.data.retrofit
 
+import com.bangkit.eventdicodingapp.data.response.EventDetailResponse
 import com.bangkit.eventdicodingapp.data.response.EventResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("events?active=1")
@@ -11,4 +13,8 @@ interface ApiService {
     @GET("events?active=0")
     fun getEventFinished(): Call<EventResponse>
 
+    @GET("events/{id}")
+    fun getEventDetail(
+        @Path("id") id: Int
+    ): Call<EventDetailResponse>
 }

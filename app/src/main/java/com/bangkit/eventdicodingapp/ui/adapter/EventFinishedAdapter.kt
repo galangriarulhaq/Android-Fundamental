@@ -9,13 +9,16 @@ import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.ItemEventSmallBinding
 import com.bumptech.glide.Glide
 
-class EventFinishedAdapter: ListAdapter<ListEventsItem, EventFinishedAdapter.MyViewHolder>(DIFF_CALLBACK) {
-    class MyViewHolder(private val binding: ItemEventSmallBinding): RecyclerView.ViewHolder(binding.root)  {
+class EventFinishedAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<ListEventsItem, EventFinishedAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    class MyViewHolder(private val binding: ItemEventSmallBinding, private val onItemClick: (Int) -> Unit): RecyclerView.ViewHolder(binding.root)  {
         fun bind(event: ListEventsItem){
             Glide.with(binding.root.context)
                 .load(event.imageLogo)
                 .into(binding.imgEvent)
             binding.tvEvent.text = event.name
+            itemView.setOnClickListener {
+                onItemClick(event.id)
+            }
         }
     }
 
@@ -24,7 +27,7 @@ class EventFinishedAdapter: ListAdapter<ListEventsItem, EventFinishedAdapter.MyV
         viewType: Int
     ): EventFinishedAdapter.MyViewHolder {
         val binding = ItemEventSmallBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: EventFinishedAdapter.MyViewHolder, position: Int) {
