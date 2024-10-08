@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentFinishedBinding
+import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
 import com.bangkit.eventdicodingapp.ui.model.FinishedViewModel
 
 class FinishedFragment : Fragment() {
@@ -23,16 +27,24 @@ class FinishedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
+        val finishedViewModel =
             ViewModelProvider(this).get(FinishedViewModel::class.java)
 
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvEvent.layoutManager = layoutManager
+
+        finishedViewModel.listEvent.observe(viewLifecycleOwner, Observer { eventList ->
+            setEventData(eventList)
+        })
+
+        finishedViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            showLoading(isLoading)
+        })
+
+
         return root
     }
 
@@ -40,4 +52,15 @@ class FinishedFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun setEventData(listEvent: List<ListEventsItem>) {
+        val adapter = EventAdapter()
+        adapter.submitList(listEvent)
+        binding.rvEvent.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
 }
