@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentHomeBinding
+import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
+import com.bangkit.eventdicodingapp.ui.adapter.EventFinishedAdapter
 import com.bangkit.eventdicodingapp.ui.model.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -29,11 +34,40 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val layoutManagerUpcoming = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvEventUpcoming.layoutManager = layoutManagerUpcoming
+        val layoutManagerFinished = LinearLayoutManager(requireContext())
+        binding.rvEventFinished.layoutManager = layoutManagerFinished
+
+        homeViewModel.listEventUpcoming.observe(viewLifecycleOwner, Observer { eventListUpcoming ->
+            setEventDataUpcoming(eventListUpcoming)
+        })
+
+        homeViewModel.listEventFinished.observe(viewLifecycleOwner, Observer { eventListFinished ->
+            setEventDataFinished(eventListFinished)
+        })
+
+        homeViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            showLoading(isLoading)
+        })
+
         return root
+    }
+
+    private fun setEventDataUpcoming(listEvent: List<ListEventsItem>) {
+        val adapter = EventFinishedAdapter()
+        adapter.submitList(listEvent.take(5))
+        binding.rvEventUpcoming.adapter = adapter
+    }
+
+    private fun setEventDataFinished(listEvent: List<ListEventsItem>) {
+        val adapter = EventAdapter()
+        adapter.submitList(listEvent.take(5))
+        binding.rvEventFinished.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {
