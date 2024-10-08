@@ -9,9 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentFinishedBinding
 import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
+import com.bangkit.eventdicodingapp.ui.adapter.EventFinishedAdapter
 import com.bangkit.eventdicodingapp.ui.model.FinishedViewModel
 
 class FinishedFragment : Fragment() {
@@ -33,7 +35,7 @@ class FinishedFragment : Fragment() {
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val layoutManager = GridLayoutManager(requireContext(), 2)
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.rvEvent.layoutManager = layoutManager
 
         finishedViewModel.listEvent.observe(viewLifecycleOwner, Observer { eventList ->
@@ -54,7 +56,7 @@ class FinishedFragment : Fragment() {
     }
 
     private fun setEventData(listEvent: List<ListEventsItem>) {
-        val adapter = EventAdapter()
+        val adapter = EventFinishedAdapter()
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter
     }
