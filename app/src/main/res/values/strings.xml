@@ -5,6 +5,7 @@
     <string name="title_upcoming">Upcoming</string>
     <string name="img_content">Image Event</string>
     <string name="title_event">Judul Event</string>
-    <string name="upcoming_event">Upcoming</string>
-    <string name="finished_event">Finished</string>
+    <string name="upcoming_event">Upcoming Events</string>
+    <string name="finished_event">Finished Events</string>
+    <string name="searchbar_hint">Masukkan Judul</string>
 </resources>

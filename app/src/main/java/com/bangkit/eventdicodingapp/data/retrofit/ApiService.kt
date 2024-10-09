@@ -5,6 +5,7 @@ import com.bangkit.eventdicodingapp.data.response.EventResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @GET("events?active=1")
@@ -17,4 +18,11 @@ interface ApiService {
     fun getEventDetail(
         @Path("id") id: Int
     ): Call<EventDetailResponse>
+
+    @GET("events")
+    suspend fun getEventSearch(
+        @Query("active") active: Int = -1,
+        @Query("q") query: String
+    ): EventResponse
+
 }

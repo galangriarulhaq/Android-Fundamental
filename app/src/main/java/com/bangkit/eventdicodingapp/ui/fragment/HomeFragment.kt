@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
         val layoutManagerFinished = LinearLayoutManager(requireActivity())
         binding.rvEventFinished.layoutManager = layoutManagerFinished
 
+
         homeViewModel.listEventUpcoming.observe(viewLifecycleOwner, Observer { eventListUpcoming ->
             setEventDataUpcoming(eventListUpcoming)
         })
