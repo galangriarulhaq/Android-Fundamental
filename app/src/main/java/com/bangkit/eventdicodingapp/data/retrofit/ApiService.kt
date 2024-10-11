@@ -20,9 +20,9 @@ interface ApiService {
     ): Call<EventDetailResponse>
 
     @GET("events")
-    suspend fun getEventSearch(
+    fun getEventSearch(
         @Query("active") active: Int = -1,
         @Query("q") query: String
-    ): EventResponse
+    ): Call<EventResponse>
 
 }

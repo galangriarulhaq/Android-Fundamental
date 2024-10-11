@@ -11,6 +11,7 @@ import com.bangkit.eventdicodingapp.data.response.Event
 import com.bangkit.eventdicodingapp.data.response.EventDetailResponse
 import com.bangkit.eventdicodingapp.data.retrofit.ApiConfig
 import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
+import com.bumptech.glide.Glide
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
@@ -27,7 +28,6 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_detail)
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -35,10 +35,10 @@ class DetailActivity : AppCompatActivity() {
 
         val eventId = intent.getIntExtra("EVENT_ID", 1)
 
-        findEventDetail(eventId)
+        fetchEventDetail(eventId)
     }
 
-    private fun findEventDetail(id: Int) {
+    private fun fetchEventDetail(id: Int) {
         val client = ApiConfig.getApiService().getEventDetail(id)
         client.enqueue(object : Callback<EventDetailResponse> {
             override fun onResponse(
@@ -60,7 +60,12 @@ class DetailActivity : AppCompatActivity() {
         })
     }
     private fun setEventData(event: Event) {
-        binding.tvEventDetail.text = event.name
+        Glide.with(binding.root.context)
+            .load(event.imageLogo)
+            .into(binding.imgEvent)
+        binding.tvCategory.text = event.category
+        binding.tvTitleEvent.text = event.name
+        binding.tvSummaryEvent.text = event.summary
     }
 
 }

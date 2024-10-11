@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEventDataFinished(listEvent: List<ListEventsItem>) {
-        val adapter = EventAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
+        val adapter = EventAdapter(onItemClick = { eventId -> navigateToDetail(eventId) })
         adapter.submitList(listEvent.take(5))
         binding.rvEventFinished.adapter = adapter
     }

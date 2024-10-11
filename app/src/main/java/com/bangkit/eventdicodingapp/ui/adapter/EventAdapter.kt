@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
-import com.bangkit.eventdicodingapp.databinding.ItemEventBinding
+import com.bangkit.eventdicodingapp.databinding.ItemEventLargeBinding
 import com.bumptech.glide.Glide
 
 class EventAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<ListEventsItem, EventAdapter.MyViewHolder>(DIFF_CALLBACK) {
-    class MyViewHolder(private val binding: ItemEventBinding, private val onItemClick: (Int) -> Unit): RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemEventLargeBinding, private val onItemClick: (Int) -> Unit): RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem){
             Glide.with(binding.root.context)
                 .load(event.imageLogo)
@@ -23,7 +23,7 @@ class EventAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<ListEven
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventAdapter.MyViewHolder {
-        val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemEventLargeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding, onItemClick)
     }
 

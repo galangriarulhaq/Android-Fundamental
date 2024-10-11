@@ -7,15 +7,67 @@
     android:layout_height="match_parent"
     tools:context=".ui.DetailActivity">
 
-    <TextView
-        android:id="@+id/tv_event_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageView
+        android:id="@+id/img_event"
+        android:contentDescription="@string/img_content"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Judul"/>
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/grey"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_event" >
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            tools:text="@string/category_event"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tv_title_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        tools:text="@string/title_event"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_category" />
+
+    <TextView
+        android:id="@+id/tv_summary_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:textSize="16sp"
+        tools:text="@string/summary_event"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_event"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
