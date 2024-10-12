@@ -1,11 +1,12 @@
 package com.bangkit.eventdicodingapp.ui
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.text.HtmlCompat
 import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.data.response.Event
 import com.bangkit.eventdicodingapp.data.response.EventDetailResponse
@@ -29,6 +30,8 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -59,13 +62,41 @@ class DetailActivity : AppCompatActivity() {
             }
         })
     }
+    @SuppressLint("SetTextI18n")
     private fun setEventData(event: Event) {
+
+        supportActionBar?.title = event.name
+
         Glide.with(binding.root.context)
             .load(event.imageLogo)
             .into(binding.imgEvent)
-        binding.tvCategory.text = event.category
         binding.tvTitleEvent.text = event.name
         binding.tvSummaryEvent.text = event.summary
+        binding.tvBeginTime.text = event.beginTime
+        val remainingQuota = event.quota - event.registrants
+        binding.tvRemainingQuota.text = "Sisa Kuota: ${remainingQuota.toString()} "
+        binding.tvCategory.text = event.category
+        binding.tvOwner.text = "Oleh : ${event.ownerName}"
+        binding.tvDescription.text = HtmlCompat.fromHtml(
+            event.description.toString(),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+        binding.btnRegister.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(event.link)
+
+            startActivity(intent)
+        }
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
 }

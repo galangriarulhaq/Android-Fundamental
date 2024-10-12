@@ -10,4 +10,9 @@
     <string name="searchbar_hint">Masukkan Judul</string>
     <string name="summary_event">Ringkasan Event</string>
     <string name="category_event">Category Event</string>
+    <string name="remaining_quota">Sisa Kuota :</string>
+    <string name="begin_time">Waktu Acara</string>
+    <string name="owner_event">Penyelenggara Event</string>
+    <string name="description">Deskripsi</string>
+    <string name="register_event">Register</string>
 </resources>
