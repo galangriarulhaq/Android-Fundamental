@@ -1,5 +1,6 @@
 package com.bangkit.eventdicodingapp.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,13 +10,16 @@ import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.ItemEventSmallBinding
 import com.bumptech.glide.Glide
 
-class EventFinishedAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<ListEventsItem, EventFinishedAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class EventSmallAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<ListEventsItem, EventSmallAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: ItemEventSmallBinding, private val onItemClick: (Int) -> Unit): RecyclerView.ViewHolder(binding.root)  {
+        @SuppressLint("SetTextI18n")
         fun bind(event: ListEventsItem){
             Glide.with(binding.root.context)
                 .load(event.imageLogo)
                 .into(binding.imgEvent)
             binding.tvEvent.text = event.name
+            binding.tvCategory.text = event.category
+            binding.tvOwner.text = "Oleh : ${event.ownerName}"
             itemView.setOnClickListener {
                 onItemClick(event.id)
             }
@@ -25,12 +29,12 @@ class EventFinishedAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): EventFinishedAdapter.MyViewHolder {
+    ): EventSmallAdapter.MyViewHolder {
         val binding = ItemEventSmallBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding, onItemClick)
     }
 
-    override fun onBindViewHolder(holder: EventFinishedAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EventSmallAdapter.MyViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
     }

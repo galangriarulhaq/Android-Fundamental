@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentFinishedBinding
 import com.bangkit.eventdicodingapp.ui.DetailActivity
-import com.bangkit.eventdicodingapp.ui.adapter.EventFinishedAdapter
+import com.bangkit.eventdicodingapp.ui.adapter.EventSmallAdapter
 import com.bangkit.eventdicodingapp.ui.model.FinishedViewModel
 
 class FinishedFragment : Fragment() {
@@ -61,7 +61,7 @@ class FinishedFragment : Fragment() {
     }
 
     private fun setEventData(listEvent: List<ListEventsItem>) {
-        val adapter = EventFinishedAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
+        val adapter = EventSmallAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter
     }

@@ -3,20 +3,13 @@ package com.bangkit.eventdicodingapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
-import android.view.inputmethod.EditorInfo
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bangkit.eventdicodingapp.R
-import com.bangkit.eventdicodingapp.data.response.EventDetailResponse
 import com.bangkit.eventdicodingapp.data.response.EventResponse
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.data.retrofit.ApiConfig
-import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
 import com.bangkit.eventdicodingapp.databinding.ActivitySearchBinding
-import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
+import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,7 +62,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setEventDataSearch(listEvent: List<ListEventsItem>) {
-        val adapter = EventAdapter(onItemClick = { eventId -> navigateToDetail(eventId) })
+        val adapter = EventLargeAdapter(onItemClick = { eventId -> navigateToDetail(eventId) })
         adapter.submitList(listEvent)
         binding.rvEventSearch.adapter = adapter
     }

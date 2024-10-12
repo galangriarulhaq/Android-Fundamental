@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentUpcomingBinding
 import com.bangkit.eventdicodingapp.ui.DetailActivity
-import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
+import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
 import com.bangkit.eventdicodingapp.ui.model.UpcomingViewModel
 
 class UpcomingFragment : Fragment() {
@@ -56,7 +56,7 @@ class UpcomingFragment : Fragment() {
     }
 
     private fun setEventData(listEvent: List<ListEventsItem>) {
-        val adapter = EventAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
+        val adapter = EventLargeAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter
     }

@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentHomeBinding
 import com.bangkit.eventdicodingapp.ui.DetailActivity
-import com.bangkit.eventdicodingapp.ui.adapter.EventAdapter
-import com.bangkit.eventdicodingapp.ui.adapter.EventFinishedAdapter
+import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
+import com.bangkit.eventdicodingapp.ui.adapter.EventSmallAdapter
 import com.bangkit.eventdicodingapp.ui.model.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -64,13 +64,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEventDataUpcoming(listEvent: List<ListEventsItem>) {
-        val adapter = EventFinishedAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
+        val adapter = EventSmallAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent.take(5))
         binding.rvEventUpcoming.adapter = adapter
     }
 
     private fun setEventDataFinished(listEvent: List<ListEventsItem>) {
-        val adapter = EventAdapter(onItemClick = { eventId -> navigateToDetail(eventId) })
+        val adapter = EventLargeAdapter(onItemClick = { eventId -> navigateToDetail(eventId) })
         adapter.submitList(listEvent.take(5))
         binding.rvEventFinished.adapter = adapter
     }
