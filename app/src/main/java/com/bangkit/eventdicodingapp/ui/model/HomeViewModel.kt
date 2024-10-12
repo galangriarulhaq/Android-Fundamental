@@ -24,8 +24,8 @@ class HomeViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _snackbarText = MutableLiveData<EventWrapper<String>>()
-    val snackbarText: LiveData<EventWrapper<String>> = _snackbarText
+    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
 
     init {
         fetchEventUpcoming()
@@ -45,12 +45,12 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _listEventUpcoming.value = responseBody?.listEvents
                 } else {
-                    _snackbarText.value = EventWrapper(response.body()?.message.toString())
+                    _errorMessage.value = EventWrapper(response.body()?.message.toString())
                 }
             }
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
-                _snackbarText.value = EventWrapper("Network Error : ${t.message.toString()}")
+                _errorMessage.value = EventWrapper("Network Error : ${t.message.toString()}")
             }
         })
     }
@@ -70,12 +70,12 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _listEventFinished.value = responseBody?.listEvents
                 } else {
-                    _snackbarText.value = EventWrapper(response.body()?.message.toString())
+                    _errorMessage.value = EventWrapper(response.body()?.message.toString())
                 }
             }
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
-                _snackbarText.value = EventWrapper("Network Error : ${t.message.toString()}")
+                _errorMessage.value = EventWrapper("Network Error : ${t.message.toString()}")
             }
         })
     }

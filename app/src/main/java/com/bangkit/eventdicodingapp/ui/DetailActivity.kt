@@ -45,8 +45,10 @@ class DetailActivity : AppCompatActivity() {
             setEventData(event)
         })
 
-        detailViewModel.errorMessage.observe(this, Observer {errorMessage ->
-            Toast.makeText(this, errorMessage.toString(), Toast.LENGTH_SHORT).show()
+        detailViewModel.errorMessage.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {errorMessage ->
+                Toast.makeText(this, errorMessage.toString(), Toast.LENGTH_SHORT).show()
+            }
         })
 
         detailViewModel.isLoading.observe(this, Observer {isLoading ->
