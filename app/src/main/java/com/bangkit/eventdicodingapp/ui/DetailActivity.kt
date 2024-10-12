@@ -4,19 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.data.response.Event
-import com.bangkit.eventdicodingapp.data.response.EventDetailResponse
-import com.bangkit.eventdicodingapp.data.retrofit.ApiConfig
 import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
+import com.bangkit.eventdicodingapp.ui.model.DetailViewModel
 import com.bumptech.glide.Glide
-import retrofit2.Callback
-import retrofit2.Call
-import retrofit2.Response
-
 class DetailActivity : AppCompatActivity() {
 
 
@@ -36,32 +34,28 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val detailViewModel =
+            ViewModelProvider(this).get(DetailViewModel::class.java)
+
         val eventId = intent.getIntExtra("EVENT_ID", 1)
 
-        fetchEventDetail(eventId)
+        detailViewModel.fetchDetailEvent(eventId)
+
+        detailViewModel.eventDetail.observe(this, Observer {event ->
+            setEventData(event)
+        })
+
+        detailViewModel.errorMessage.observe(this, Observer {errorMessage ->
+            Toast.makeText(this, errorMessage.toString(), Toast.LENGTH_SHORT).show()
+        })
+
+        detailViewModel.isLoading.observe(this, Observer {isLoading ->
+            showLoading(isLoading)
+        })
+
     }
 
-    private fun fetchEventDetail(id: Int) {
-        val client = ApiConfig.getApiService().getEventDetail(id)
-        client.enqueue(object : Callback<EventDetailResponse> {
-            override fun onResponse(
-                call: Call<EventDetailResponse>,
-                response: Response<EventDetailResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        setEventData(responseBody.event)
-                    }
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-            override fun onFailure(call: Call<EventDetailResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
-    }
+
     @SuppressLint("SetTextI18n")
     private fun setEventData(event: Event) {
 
@@ -88,6 +82,10 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onSupportNavigateUp(): Boolean {
