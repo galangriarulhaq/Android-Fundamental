@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentUpcomingBinding
@@ -19,6 +19,7 @@ import com.bangkit.eventdicodingapp.ui.model.UpcomingViewModel
 class UpcomingFragment : Fragment() {
 
     private var _binding: FragmentUpcomingBinding? = null
+    private val upcomingViewModel by viewModels<UpcomingViewModel>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -29,8 +30,7 @@ class UpcomingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val upcomingViewModel =
-            ViewModelProvider(this).get(UpcomingViewModel::class.java)
+
 
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root

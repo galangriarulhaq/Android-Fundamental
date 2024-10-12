@@ -6,10 +6,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.data.response.Event
 import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
@@ -19,6 +19,7 @@ class DetailActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityDetailBinding
+    private val detailViewModel by viewModels<DetailViewModel>()
 
     companion object {
         const val TAG = "DetailActivity"
@@ -34,8 +35,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val detailViewModel =
-            ViewModelProvider(this).get(DetailViewModel::class.java)
+
 
         val eventId = intent.getIntExtra("EVENT_ID", 1)
 

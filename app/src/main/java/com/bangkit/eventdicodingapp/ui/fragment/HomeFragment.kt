@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentHomeBinding
@@ -20,6 +20,7 @@ import com.bangkit.eventdicodingapp.ui.model.HomeViewModel
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private val homeViewModel by viewModels<HomeViewModel>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,8 +31,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let {errorMessage ->
+            it.getContentIfNotHandled()?.let { errorMessage ->
                 Toast.makeText(requireActivity(), errorMessage.toString(), Toast.LENGTH_SHORT).show()
             }
         })
