@@ -2,34 +2,29 @@ package com.bangkit.eventdicodingapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.eventdicodingapp.R
-import com.bangkit.eventdicodingapp.data.response.EventResponse
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
-import com.bangkit.eventdicodingapp.data.retrofit.ApiConfig
 import com.bangkit.eventdicodingapp.databinding.ActivitySearchBinding
 import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.bangkit.eventdicodingapp.ui.model.SearchViewModel
 
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
 
-    companion object {
-        const val TAG = "SearchActivity"
-    }
+    private val searchViewModel by viewModels<SearchViewModel>()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
         supportActionBar?.hide()
 
         binding = ActivitySearchBinding.inflate(layoutInflater)
@@ -41,36 +36,28 @@ class SearchActivity : AppCompatActivity() {
         binding.tfSearch.editText?.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
                 val query = binding.tfSearch.editText?.text.toString()
-                fetchEventSearch(query)
+                searchViewModel.fetchSearchEvent(query)
                 true
             } else {
                 false
             }
         }
 
-    }
+        searchViewModel.listEvent.observe(this, Observer {event ->
+            setEventDataSearch(event)
+        })
 
-    private fun fetchEventSearch(query: String) {
-        val client = ApiConfig.getApiService().getEventSearch(query)
-        client.enqueue(object : Callback<EventResponse> {
-            override fun onResponse(
-                call: Call<EventResponse>,
-                response: Response<EventResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        setEventDataSearch(responseBody.listEvents)
-                    }
-                } else {
-                    Log.e(SearchActivity.TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
-                Log.e(SearchActivity.TAG, "onFailure: ${t.message}")
+        searchViewModel.errorMessage.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {errorMessage ->
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             }
         })
+
+        searchViewModel.isLoading.observe(this, Observer {isLoading ->
+            showLoading(isLoading)
+        })
+
+
     }
 
     private fun setEventDataSearch(listEvent: List<ListEventsItem>) {
@@ -84,6 +71,10 @@ class SearchActivity : AppCompatActivity() {
             putExtra("EVENT_ID", eventId)
         }
         startActivity(intent)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
 }

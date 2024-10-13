@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
-import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.data.response.Event
 import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
 import com.bangkit.eventdicodingapp.ui.model.DetailViewModel
@@ -19,19 +18,18 @@ class DetailActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityDetailBinding
+
     private val detailViewModel by viewModels<DetailViewModel>()
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
 
         val eventId = intent.getIntExtra("EVENT_ID", 1)
@@ -44,7 +42,7 @@ class DetailActivity : AppCompatActivity() {
 
         detailViewModel.errorMessage.observe(this, Observer {
             it.getContentIfNotHandled()?.let {errorMessage ->
-                Toast.makeText(this, errorMessage.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             }
         })
 
