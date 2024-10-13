@@ -19,10 +19,9 @@ interface ApiService {
         @Path("id") id: Int
     ): Call<EventDetailResponse>
 
-    @GET("events")
+    @GET("events?active=-1")
     fun getEventSearch(
-        @Query("active") active: Int = -1,
-        @Query("q") query: String
+        @Query("q") keyword: String
     ): Call<EventResponse>
 
 }

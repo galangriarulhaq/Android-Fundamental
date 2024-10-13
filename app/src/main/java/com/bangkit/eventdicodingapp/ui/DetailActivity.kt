@@ -21,9 +21,6 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel by viewModels<DetailViewModel>()
 
-    companion object {
-        const val TAG = "DetailActivity"
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
