@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import androidx.lifecycle.Observer
 import com.bangkit.eventdicodingapp.data.response.Event
 import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
 import com.bangkit.eventdicodingapp.ui.model.DetailViewModel
@@ -36,19 +35,19 @@ class DetailActivity : AppCompatActivity() {
 
         detailViewModel.fetchDetailEvent(eventId)
 
-        detailViewModel.eventDetail.observe(this, Observer {event ->
+        detailViewModel.eventDetail.observe(this) { event ->
             setEventData(event)
-        })
+        }
 
-        detailViewModel.errorMessage.observe(this, Observer {
+        detailViewModel.errorMessage.observe(this) {
             it.getContentIfNotHandled()?.let {errorMessage ->
                 Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        detailViewModel.isLoading.observe(this, Observer {isLoading ->
+        detailViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
-        })
+        }
 
     }
 
@@ -65,11 +64,11 @@ class DetailActivity : AppCompatActivity() {
         binding.tvSummaryEvent.text = event.summary
         binding.tvBeginTime.text = event.beginTime
         val remainingQuota = event.quota - event.registrants
-        binding.tvRemainingQuota.text = "Sisa Kuota: ${remainingQuota.toString()} "
+        binding.tvRemainingQuota.text = "Sisa Kuota: $remainingQuota "
         binding.tvCategory.text = event.category
         binding.tvOwner.text = "Oleh : ${event.ownerName}"
         binding.tvDescription.text = HtmlCompat.fromHtml(
-            event.description.toString(),
+            event.description,
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
         binding.btnRegister.setOnClickListener {

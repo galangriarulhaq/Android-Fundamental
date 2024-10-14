@@ -25,10 +25,10 @@ class FinishedViewModel : ViewModel() {
     val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
 
     init {
-        fetchEvent()
+        fetchFinishedEvent()
     }
 
-    private fun fetchEvent() {
+    private fun fetchFinishedEvent() {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getEventFinished()
         client.enqueue(object : Callback<EventResponse> {

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentHomeBinding
@@ -42,23 +41,23 @@ class HomeFragment : Fragment() {
         binding.rvEventFinished.layoutManager = layoutManagerFinished
 
 
-        homeViewModel.listEventUpcoming.observe(viewLifecycleOwner, Observer { eventListUpcoming ->
+        homeViewModel.listEventUpcoming.observe(viewLifecycleOwner) {eventListUpcoming ->
             setEventDataUpcoming(eventListUpcoming)
-        })
+        }
 
-        homeViewModel.listEventFinished.observe(viewLifecycleOwner, Observer { eventListFinished ->
+        homeViewModel.listEventFinished.observe(viewLifecycleOwner) { eventListFinished ->
             setEventDataFinished(eventListFinished)
-        })
+        }
 
-        homeViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let { errorMessage ->
-                Toast.makeText(requireActivity(), errorMessage.toString(), Toast.LENGTH_SHORT).show()
+        homeViewModel.errorMessage.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {errorMessage ->
+                Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        homeViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+        homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)
-        })
+        }
 
         return root
     }

@@ -8,7 +8,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.ActivitySearchBinding
@@ -43,19 +42,19 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        searchViewModel.listEvent.observe(this, Observer {event ->
+        searchViewModel.listEvent.observe(this) { event ->
             setEventDataSearch(event)
-        })
+        }
 
-        searchViewModel.errorMessage.observe(this, Observer {
+        searchViewModel.errorMessage.observe(this) {
             it.getContentIfNotHandled()?.let {errorMessage ->
                 Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        searchViewModel.isLoading.observe(this, Observer {isLoading ->
+        searchViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
-        })
+        }
 
 
     }

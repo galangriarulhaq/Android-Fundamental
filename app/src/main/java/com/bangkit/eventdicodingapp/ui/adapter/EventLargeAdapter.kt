@@ -26,12 +26,12 @@ class EventLargeAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<Lis
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventLargeAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemEventLargeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding, onItemClick)
     }
 
-    override fun onBindViewHolder(holder: EventLargeAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
     }

@@ -24,10 +24,10 @@ class UpcomingViewModel : ViewModel() {
     val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
 
     init {
-        fetchEvent()
+        fetchUpcomingEvent()
     }
 
-    private fun fetchEvent() {
+    private fun fetchUpcomingEvent() {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getEventUpcoming()
         client.enqueue(object : Callback<EventResponse> {

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentFinishedBinding
@@ -37,19 +36,19 @@ class FinishedFragment : Fragment() {
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.rvEvent.layoutManager = layoutManager
 
-        finishedViewModel.listEvent.observe(viewLifecycleOwner, Observer { eventList ->
+        finishedViewModel.listEvent.observe(viewLifecycleOwner) { eventList ->
             setEventData(eventList)
-        })
+        }
 
-        finishedViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
+        finishedViewModel.errorMessage.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {errorMessage ->
-                Toast.makeText(requireActivity(), errorMessage.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        finishedViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+        finishedViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)
-        })
+        }
 
 
         return root

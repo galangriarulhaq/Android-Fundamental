@@ -29,12 +29,12 @@ class EventSmallAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<Lis
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): EventSmallAdapter.MyViewHolder {
+    ): MyViewHolder {
         val binding = ItemEventSmallBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding, onItemClick)
     }
 
-    override fun onBindViewHolder(holder: EventSmallAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
     }
