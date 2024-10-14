@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentUpcomingBinding
@@ -21,8 +20,7 @@ class UpcomingFragment : Fragment() {
     private var _binding: FragmentUpcomingBinding? = null
     private val upcomingViewModel by viewModels<UpcomingViewModel>()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -35,11 +33,12 @@ class UpcomingFragment : Fragment() {
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvEvent.layoutManager = layoutManager
+        val linearLayoutManager = LinearLayoutManager(requireActivity())
+        binding.rvEvent.layoutManager = linearLayoutManager
+
 
         upcomingViewModel.listEvent.observe(viewLifecycleOwner) { eventList ->
-            setEventData(eventList)
+            setEventDataUpcoming(eventList)
         }
 
         upcomingViewModel.errorMessage.observe(viewLifecycleOwner) {
@@ -55,7 +54,8 @@ class UpcomingFragment : Fragment() {
         return root
     }
 
-    private fun setEventData(listEvent: List<ListEventsItem>) {
+
+    private fun setEventDataUpcoming(listEvent: List<ListEventsItem>) {
         val adapter = EventLargeAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter

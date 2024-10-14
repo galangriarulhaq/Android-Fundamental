@@ -37,7 +37,7 @@ class FinishedFragment : Fragment() {
         binding.rvEvent.layoutManager = layoutManager
 
         finishedViewModel.listEvent.observe(viewLifecycleOwner) { eventList ->
-            setEventData(eventList)
+            setEventDataFinished(eventList)
         }
 
         finishedViewModel.errorMessage.observe(viewLifecycleOwner) {
@@ -59,7 +59,7 @@ class FinishedFragment : Fragment() {
         _binding = null
     }
 
-    private fun setEventData(listEvent: List<ListEventsItem>) {
+    private fun setEventDataFinished(listEvent: List<ListEventsItem>) {
         val adapter = EventSmallAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter
