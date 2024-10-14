@@ -37,8 +37,6 @@ class UpcomingFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvEvent.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
-        binding.rvEvent.addItemDecoration(itemDecoration)
 
         upcomingViewModel.listEvent.observe(viewLifecycleOwner) { eventList ->
             setEventData(eventList)

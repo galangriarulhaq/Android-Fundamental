@@ -22,6 +22,7 @@ class SearchViewModel: ViewModel() {
     private val _errorMessage = MutableLiveData<EventWrapper<String>>()
     val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
 
+
     fun fetchSearchEvent(query: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getEventSearch(query)
