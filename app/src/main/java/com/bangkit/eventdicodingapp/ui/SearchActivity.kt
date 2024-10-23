@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.eventdicodingapp.data.response.ListEventsItem
+import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.ActivitySearchBinding
 import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
 import com.bangkit.eventdicodingapp.ui.model.SearchViewModel

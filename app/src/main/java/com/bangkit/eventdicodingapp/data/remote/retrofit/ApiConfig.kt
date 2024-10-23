@@ -1,4 +1,4 @@
-package com.bangkit.eventdicodingapp.data.retrofit
+package com.bangkit.eventdicodingapp.data.remote.retrofit
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,7 +1,7 @@
-package com.bangkit.eventdicodingapp.data.retrofit
+package com.bangkit.eventdicodingapp.data.remote.retrofit
 
-import com.bangkit.eventdicodingapp.data.response.EventDetailResponse
-import com.bangkit.eventdicodingapp.data.response.EventResponse
+import com.bangkit.eventdicodingapp.data.remote.response.EventDetailResponse
+import com.bangkit.eventdicodingapp.data.remote.response.EventResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

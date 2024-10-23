@@ -1,20 +1,20 @@
-package com.bangkit.eventdicodingapp.data.response
+package com.bangkit.eventdicodingapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class EventResponse(
-
-	@field:SerializedName("listEvents")
-	val listEvents: List<ListEventsItem> = listOf(),
+data class EventDetailResponse(
 
 	@field:SerializedName("error")
 	val error: Boolean,
 
 	@field:SerializedName("message")
-	val message: String
+	val message: String,
+
+	@field:SerializedName("event")
+	val event: Event
 )
 
-data class ListEventsItem(
+data class Event(
 
 	@field:SerializedName("summary")
 	val summary: String,

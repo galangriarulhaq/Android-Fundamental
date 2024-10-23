@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import com.bangkit.eventdicodingapp.data.response.Event
+import com.bangkit.eventdicodingapp.data.remote.response.Event
 import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
 import com.bangkit.eventdicodingapp.ui.model.DetailViewModel
 import com.bumptech.glide.Glide

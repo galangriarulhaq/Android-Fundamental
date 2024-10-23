@@ -3,9 +3,9 @@ package com.bangkit.eventdicodingapp.ui.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bangkit.eventdicodingapp.data.response.EventResponse
-import com.bangkit.eventdicodingapp.data.response.ListEventsItem
-import com.bangkit.eventdicodingapp.data.retrofit.ApiConfig
+import com.bangkit.eventdicodingapp.data.remote.response.EventResponse
+import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
+import com.bangkit.eventdicodingapp.data.remote.retrofit.ApiConfig
 import com.bangkit.eventdicodingapp.util.EventWrapper
 import retrofit2.Call
 import retrofit2.Callback
