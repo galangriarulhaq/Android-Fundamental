@@ -16,4 +16,6 @@
     <string name="description">Deskripsi</string>
     <string name="register_event">Register</string>
     <string name="information">Informasi :</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_setting">Setting</string>
 </resources>
