@@ -1,27 +1,27 @@
 package com.bangkit.eventdicodingapp.ui.model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bangkit.eventdicodingapp.data.remote.response.EventResponse
-import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
-import com.bangkit.eventdicodingapp.data.remote.retrofit.ApiConfig
+import com.bangkit.eventdicodingapp.data.Result
+import com.bangkit.eventdicodingapp.data.EventRepository
+import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.util.EventWrapper
-import retrofit2.Callback
-import retrofit2.Call
-import retrofit2.Response
-
-class UpcomingViewModel : ViewModel() {
 
 
-    private val _listEvent = MutableLiveData<List<ListEventsItem>>()
-    val listEvent: LiveData<List<ListEventsItem>> = _listEvent
+class UpcomingViewModel(private val eventRepository: EventRepository) : ViewModel() {
+
+    companion object {
+        private const val TAG = "UpcomingViewModel"
+    }
+
+    private val _listEvent = MutableLiveData<List<EventEntity>>()
+    val listEvent: LiveData<List<EventEntity>> = _listEvent
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
-    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
 
     init {
         fetchUpcomingEvent()
@@ -29,25 +29,21 @@ class UpcomingViewModel : ViewModel() {
 
     private fun fetchUpcomingEvent() {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getEventUpcoming()
-        client.enqueue(object : Callback<EventResponse> {
-            override fun onResponse(
-                call: Call<EventResponse>,
-                response: Response<EventResponse>
-            ) {
-                val responseBody = response.body()
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    _listEvent.value = responseBody?.listEvents
-                } else {
-                    _errorMessage.value = EventWrapper(response.body()?.message.toString())
+
+        eventRepository.fetchUpcomingEvents().observeForever { result ->
+            when (result) {
+                is Result.Loading -> _isLoading.value = true
+                is Result.Success -> {
+                    _isLoading.value = false
+                    _listEvent.value = result.data
+                }
+
+                is Result.Error -> {
+                    _isLoading.value = false
+                    Log.e(TAG, "Error: ${result.error}")
                 }
             }
-            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
-                _isLoading.value = false
-                _errorMessage.value = EventWrapper("Network Error : ${t.message.toString()}")
-            }
-        })
+        }
     }
 
 }

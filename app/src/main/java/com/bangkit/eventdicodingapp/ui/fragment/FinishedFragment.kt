@@ -6,20 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
+import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.databinding.FragmentFinishedBinding
 import com.bangkit.eventdicodingapp.ui.DetailActivity
 import com.bangkit.eventdicodingapp.ui.adapter.EventSmallAdapter
+import com.bangkit.eventdicodingapp.ui.factory.FinishedModelFactory
 import com.bangkit.eventdicodingapp.ui.model.FinishedViewModel
 
 class FinishedFragment : Fragment() {
 
     private var _binding: FragmentFinishedBinding? = null
-    private val finishedViewModel by viewModels<FinishedViewModel>()
+    private val finishedViewModel by viewModels<FinishedViewModel>(){
+        FinishedModelFactory.getInstance(requireActivity())
+    }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -41,11 +43,11 @@ class FinishedFragment : Fragment() {
             setEventDataFinished(eventList)
         }
 
-        finishedViewModel.errorMessage.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {errorMessage ->
-                Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        }
+//        finishedViewModel.errorMessage.observe(viewLifecycleOwner) {
+//            it.getContentIfNotHandled()?.let {errorMessage ->
+//                Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         finishedViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)
@@ -60,7 +62,7 @@ class FinishedFragment : Fragment() {
         _binding = null
     }
 
-    private fun setEventDataFinished(listEvent: List<ListEventsItem>) {
+    private fun setEventDataFinished(listEvent: List<EventEntity>) {
         val adapter = EventSmallAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter

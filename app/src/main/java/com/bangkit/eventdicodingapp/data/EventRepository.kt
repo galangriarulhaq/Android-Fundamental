@@ -18,7 +18,7 @@ class EventRepository private constructor(
     private val appExecutors: AppExecutors
 ) {
 
-    fun fetchActiveEvents(): LiveData<Result<List<EventEntity>>> = liveData {
+    fun fetchUpcomingEvents(): LiveData<Result<List<EventEntity>>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getEventUpcoming()
@@ -147,6 +147,5 @@ class EventRepository private constructor(
                 instance ?: EventRepository(apiService, eventDao, appExecutors)
             }.also { instance = it }
     }
-
-
+    
 }
