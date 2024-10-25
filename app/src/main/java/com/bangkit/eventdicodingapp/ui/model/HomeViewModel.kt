@@ -8,13 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.bangkit.eventdicodingapp.data.EventRepository
 import com.bangkit.eventdicodingapp.data.Result
 import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
-import com.bangkit.eventdicodingapp.data.remote.response.EventResponse
-import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
-import com.bangkit.eventdicodingapp.data.remote.retrofit.ApiConfig
 import com.bangkit.eventdicodingapp.util.EventWrapper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeViewModel(private val eventRepository: EventRepository) : ViewModel() {
 
@@ -31,9 +25,8 @@ class HomeViewModel(private val eventRepository: EventRepository) : ViewModel() 
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
-    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
+//    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+//    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
 
     init {
         fetchEventUpcoming()
