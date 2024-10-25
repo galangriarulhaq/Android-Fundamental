@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import com.bangkit.eventdicodingapp.data.remote.response.Event
 import com.bangkit.eventdicodingapp.data.remote.response.EventDetailResponse
 import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
 import com.bangkit.eventdicodingapp.ui.factory.DetailModelFactory
@@ -44,11 +43,11 @@ class DetailActivity : AppCompatActivity() {
             setEventData(event)
         }
 
-        detailViewModel.errorMessage.observe(this) {
-            it.getContentIfNotHandled()?.let {errorMessage ->
-                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        }
+//        detailViewModel.errorMessage.observe(this) {
+//            it.getContentIfNotHandled()?.let {errorMessage ->
+//                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         detailViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)

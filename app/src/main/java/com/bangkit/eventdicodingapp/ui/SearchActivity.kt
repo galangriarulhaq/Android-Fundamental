@@ -12,13 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.ActivitySearchBinding
 import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
+import com.bangkit.eventdicodingapp.ui.adapter.EventSearchAdapter
+import com.bangkit.eventdicodingapp.ui.factory.SearchModelFactory
 import com.bangkit.eventdicodingapp.ui.model.SearchViewModel
 
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
 
-    private val searchViewModel by viewModels<SearchViewModel>()
+    private val searchViewModel by viewModels<SearchViewModel>(){
+        SearchModelFactory.getInstance(this)
+    }
 
 
 
@@ -47,11 +51,11 @@ class SearchActivity : AppCompatActivity() {
             setEventDataSearch(event)
         }
 
-        searchViewModel.errorMessage.observe(this) {
-            it.getContentIfNotHandled()?.let {errorMessage ->
-                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        }
+//        searchViewModel.errorMessage.observe(this) {
+//            it.getContentIfNotHandled()?.let {errorMessage ->
+//                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         searchViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
@@ -61,7 +65,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setEventDataSearch(listEvent: List<ListEventsItem>) {
-        val adapter = EventLargeAdapter(onItemClick = { eventId -> navigateToDetail(eventId) })
+        val adapter = EventSearchAdapter(onItemClick = { eventId -> navigateToDetail(eventId) })
         adapter.submitList(listEvent)
         binding.rvEventSearch.adapter = adapter
     }
