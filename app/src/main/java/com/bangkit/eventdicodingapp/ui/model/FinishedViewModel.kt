@@ -22,12 +22,13 @@ class FinishedViewModel(private val eventRepository: EventRepository) : ViewMode
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
-    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
+//    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+//    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
 
     init {
         fetchFinishedEvent()
     }
+
 
     private fun fetchFinishedEvent() {
         _isLoading.value = true
@@ -47,4 +48,13 @@ class FinishedViewModel(private val eventRepository: EventRepository) : ViewMode
             }
         }
     }
+
+    suspend fun saveEvent(event: EventEntity) {
+        eventRepository.setEventFavorite(event, true)
+    }
+
+    suspend fun deleteEvent(event: EventEntity) {
+        eventRepository.setEventFavorite(event, false)
+    }
+
 }

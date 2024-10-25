@@ -27,6 +27,14 @@ class UpcomingViewModel(private val eventRepository: EventRepository) : ViewMode
         fetchUpcomingEvent()
     }
 
+    suspend fun saveEvent(event: EventEntity) {
+        eventRepository.setEventFavorite(event, true)
+    }
+
+    suspend fun deleteEvent(event: EventEntity) {
+        eventRepository.setEventFavorite(event, false)
+    }
+
     private fun fetchUpcomingEvent() {
         _isLoading.value = true
 

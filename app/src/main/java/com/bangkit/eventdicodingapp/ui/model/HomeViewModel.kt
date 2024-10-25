@@ -72,4 +72,13 @@ class HomeViewModel(private val eventRepository: EventRepository) : ViewModel() 
             }
         }
     }
+
+    suspend fun saveEvent(event: EventEntity) {
+        eventRepository.setEventFavorite(event, true)
+    }
+
+    suspend fun deleteEvent(event: EventEntity) {
+        eventRepository.setEventFavorite(event, false)
+    }
+
 }

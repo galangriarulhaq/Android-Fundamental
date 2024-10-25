@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
@@ -16,6 +17,7 @@ import com.bangkit.eventdicodingapp.ui.DetailActivity
 import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
 import com.bangkit.eventdicodingapp.ui.factory.UpcomingModelFactory
 import com.bangkit.eventdicodingapp.ui.model.UpcomingViewModel
+import kotlinx.coroutines.launch
 
 class UpcomingFragment : Fragment() {
 
@@ -24,8 +26,6 @@ class UpcomingFragment : Fragment() {
     private val upcomingViewModel by viewModels<UpcomingViewModel>(){
         UpcomingModelFactory.getInstance(requireActivity())
     }
-
-
 
     private val binding get() = _binding!!
 
@@ -62,7 +62,15 @@ class UpcomingFragment : Fragment() {
 
 
     private fun setEventDataUpcoming(listEvent: List<EventEntity>) {
-        val adapter = EventLargeAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
+        val adapter = EventLargeAdapter(
+            onItemClick = { eventId -> navigateToDetail(eventId)},
+            onFavoriteClick = { event ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    toggleFavorite(event)
+                }
+            }
+        )
+
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter
     }
@@ -74,6 +82,14 @@ class UpcomingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private suspend fun toggleFavorite(event: EventEntity) {
+        if (event.isFavorite) {
+            upcomingViewModel.deleteEvent(event)
+        } else {
+            upcomingViewModel.saveEvent(event)
+        }
     }
 
     private fun navigateToDetail(eventId: Int) {

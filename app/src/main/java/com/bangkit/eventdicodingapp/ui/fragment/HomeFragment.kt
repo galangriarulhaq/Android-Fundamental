@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
@@ -18,6 +19,7 @@ import com.bangkit.eventdicodingapp.ui.adapter.EventSmallAdapter
 import com.bangkit.eventdicodingapp.ui.factory.FinishedModelFactory
 import com.bangkit.eventdicodingapp.ui.factory.HomeModelFactory
 import com.bangkit.eventdicodingapp.ui.model.HomeViewModel
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -68,19 +70,39 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEventDataUpcoming(listEvent: List<EventEntity>) {
-        val adapter = EventSmallAdapter(onItemClick = { eventId -> navigateToDetail(eventId)})
+        val adapter = EventSmallAdapter(
+            onItemClick = { eventId -> navigateToDetail(eventId)},
+            onFavoriteClick = { event ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    toggleFavorite(event)
+                }
+            })
         adapter.submitList(listEvent.take(5))
         binding.rvEventUpcoming.adapter = adapter
     }
 
     private fun setEventDataFinished(listEvent: List<EventEntity>) {
-        val adapter = EventLargeAdapter(onItemClick = { eventId -> navigateToDetail(eventId) })
+        val adapter = EventLargeAdapter(
+            onItemClick = { eventId -> navigateToDetail(eventId) },
+            onFavoriteClick = { event ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    toggleFavorite(event)
+                }
+            })
         adapter.submitList(listEvent.take(5))
         binding.rvEventFinished.adapter = adapter
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private suspend fun toggleFavorite(event: EventEntity) {
+        if (event.isFavorite) {
+            homeViewModel.deleteEvent(event)
+        } else {
+            homeViewModel.saveEvent(event)
+        }
     }
 
     override fun onDestroyView() {

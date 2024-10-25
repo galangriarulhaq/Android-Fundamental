@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.ItemEventSmallBinding
 import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
 
-class EventSmallAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<EventEntity, EventSmallAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class EventSmallAdapter(private val onItemClick: (Int) -> Unit, private val onFavoriteClick: (EventEntity) -> Unit): ListAdapter<EventEntity, EventSmallAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: ItemEventSmallBinding, private val onItemClick: (Int) -> Unit): RecyclerView.ViewHolder(binding.root)  {
         @SuppressLint("SetTextI18n")
         fun bind(event: EventEntity){
@@ -38,6 +40,19 @@ class EventSmallAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<Eve
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
+
+        val btnFav = holder.itemView.findViewById<MaterialButton>(R.id.btn_fav)
+
+        if (event.isFavorite) {
+            btnFav.setIconResource(R.drawable.baseline_favorite_24)
+        } else {
+            btnFav.setIconResource(R.drawable.baseline_favorite_border_24)
+        }
+
+        btnFav.setOnClickListener {
+            onFavoriteClick(event)
+        }
+
     }
 
     companion object {
