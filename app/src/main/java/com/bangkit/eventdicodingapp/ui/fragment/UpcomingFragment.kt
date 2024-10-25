@@ -25,7 +25,6 @@ class UpcomingFragment : Fragment() {
         UpcomingModelFactory.getInstance(requireActivity())
     }
 
-    private lateinit var eventAdapter: EventLargeAdapter
 
 
     private val binding get() = _binding!!
