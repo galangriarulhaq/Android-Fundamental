@@ -10,7 +10,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.bangkit.eventdicodingapp.data.remote.response.Event
+import com.bangkit.eventdicodingapp.data.remote.response.EventDetailResponse
 import com.bangkit.eventdicodingapp.databinding.ActivityDetailBinding
+import com.bangkit.eventdicodingapp.ui.factory.DetailModelFactory
 import com.bangkit.eventdicodingapp.ui.model.DetailViewModel
 import com.bumptech.glide.Glide
 class DetailActivity : AppCompatActivity() {
@@ -18,7 +20,9 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
 
-    private val detailViewModel by viewModels<DetailViewModel>()
+    private val detailViewModel by viewModels<DetailViewModel>(){
+        DetailModelFactory.getInstance(this)
+    }
 
 
 
@@ -54,7 +58,9 @@ class DetailActivity : AppCompatActivity() {
 
 
     @SuppressLint("SetTextI18n")
-    private fun setEventData(event: Event) {
+    private fun setEventData(eventDetail: EventDetailResponse) {
+
+        val event = eventDetail.event
 
         supportActionBar?.title = event.name
 
