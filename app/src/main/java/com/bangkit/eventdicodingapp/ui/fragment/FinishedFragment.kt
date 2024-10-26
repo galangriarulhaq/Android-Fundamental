@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -39,13 +40,19 @@ class FinishedFragment : Fragment() {
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding?.rvEvent?.apply {
+        binding.rvEvent.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             setHasFixedSize(true)
         }
 
         finishedViewModel.listEvent.observe(viewLifecycleOwner) {eventList ->
             setEventDataFinished(eventList)
+        }
+
+        finishedViewModel.errorMessage.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {errorMessage ->
+                Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
         }
 
         finishedViewModel.isLoading.observe(viewLifecycleOwner) {loading ->

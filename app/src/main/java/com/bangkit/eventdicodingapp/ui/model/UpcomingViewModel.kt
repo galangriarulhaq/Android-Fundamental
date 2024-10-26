@@ -22,6 +22,9 @@ class UpcomingViewModel(private val eventRepository: EventRepository) : ViewMode
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
+
 
     init {
         fetchUpcomingEvent()
@@ -48,7 +51,7 @@ class UpcomingViewModel(private val eventRepository: EventRepository) : ViewMode
 
                 is Result.Error -> {
                     _isLoading.value = false
-                    Log.e(TAG, "Error: ${result.error}")
+                    _errorMessage.value = EventWrapper("Error ${result.error}")
                 }
             }
         }

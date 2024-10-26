@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
-import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.FragmentUpcomingBinding
 import com.bangkit.eventdicodingapp.ui.DetailActivity
 import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
@@ -39,19 +39,21 @@ class UpcomingFragment : Fragment() {
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val linearLayoutManager = LinearLayoutManager(requireActivity())
-        binding.rvEvent.layoutManager = linearLayoutManager
+        binding.rvEvent.apply {
+            layoutManager = LinearLayoutManager(requireActivity())
+            setHasFixedSize(true)
+        }
 
 
         upcomingViewModel.listEvent.observe(viewLifecycleOwner) { eventList ->
             setEventDataUpcoming(eventList)
         }
 
-//        upcomingViewModel.errorMessage.observe(viewLifecycleOwner) {
-//            it.getContentIfNotHandled()?.let {errorMessage ->
-//                Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
-//            }
-//        }
+        upcomingViewModel.errorMessage.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {errorMessage ->
+                Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
 
         upcomingViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)

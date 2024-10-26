@@ -10,7 +10,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.data.remote.retrofit.ApiConfig
-import com.bangkit.eventdicodingapp.ui.MainActivity
 
 class ReminderWorker(private val context: Context, workerParams: WorkerParameters): CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {

@@ -44,7 +44,7 @@ class FavoriteFragment : Fragment() {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        setupRecyclerView()
+        setupEventFavorite()
         viewLifecycleOwner.lifecycleScope.launch {
             observeViewModels()
         }
@@ -65,7 +65,7 @@ class FavoriteFragment : Fragment() {
 
     }
 
-    private fun setupRecyclerView() {
+    private fun setupEventFavorite() {
         val rvEvent = binding.rvFavorite
         rvEvent.layoutManager = LinearLayoutManager(requireContext())
         eventFavoriteAdapter = EventLargeAdapter(
