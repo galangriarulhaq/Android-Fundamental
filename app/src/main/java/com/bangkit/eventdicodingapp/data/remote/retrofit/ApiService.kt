@@ -2,7 +2,6 @@ package com.bangkit.eventdicodingapp.data.remote.retrofit
 
 import com.bangkit.eventdicodingapp.data.remote.response.EventDetailResponse
 import com.bangkit.eventdicodingapp.data.remote.response.EventResponse
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -26,7 +25,7 @@ interface ApiService {
 
     @GET("events")
     suspend fun getEventReminder(
-        @Query("active") active: Int = 1,
+        @Query("active") active: Int = -1,
         @Query("limit") limit: Int = 1
     ): EventResponse
 

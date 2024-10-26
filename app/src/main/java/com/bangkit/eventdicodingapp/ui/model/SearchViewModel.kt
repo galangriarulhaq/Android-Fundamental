@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.bangkit.eventdicodingapp.data.EventRepository
 import com.bangkit.eventdicodingapp.data.Result
 import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
+import com.bangkit.eventdicodingapp.util.EventWrapper
 
 
 class SearchViewModel(private val eventRepository: EventRepository): ViewModel() {
@@ -21,8 +22,8 @@ class SearchViewModel(private val eventRepository: EventRepository): ViewModel()
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-//    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
-//    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
+    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+    val errorMessage: LiveData<EventWrapper<String>> = _errorMessage
 
 
     fun fetchSearchEvent(query: String) {
@@ -38,7 +39,7 @@ class SearchViewModel(private val eventRepository: EventRepository): ViewModel()
 
                 is Result.Error -> {
                     _isLoading.value = false
-                    Log.e(TAG, "Error: ${result.error}")
+                    _errorMessage.value = EventWrapper("Error: ${result.error}")
                 }
             }
         }
