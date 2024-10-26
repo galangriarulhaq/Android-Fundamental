@@ -10,12 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.databinding.FragmentFinishedBinding
 import com.bangkit.eventdicodingapp.ui.DetailActivity
-import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
 import com.bangkit.eventdicodingapp.ui.adapter.EventSmallAdapter
 import com.bangkit.eventdicodingapp.ui.factory.FinishedModelFactory
 import com.bangkit.eventdicodingapp.ui.model.FinishedViewModel
@@ -27,6 +24,7 @@ class FinishedFragment : Fragment() {
     private val finishedViewModel by viewModels<FinishedViewModel>(){
         FinishedModelFactory.getInstance(requireActivity())
     }
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -41,27 +39,23 @@ class FinishedFragment : Fragment() {
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val layoutManager = GridLayoutManager(requireActivity(), 2)
+        binding?.rvEvent?.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            setHasFixedSize(true)
+        }
 
-        binding.rvEvent.layoutManager = layoutManager
-
-        finishedViewModel.listEvent.observe(viewLifecycleOwner) { eventList ->
+        finishedViewModel.listEvent.observe(viewLifecycleOwner) {eventList ->
             setEventDataFinished(eventList)
         }
 
-//        finishedViewModel.errorMessage.observe(viewLifecycleOwner) {
-//            it.getContentIfNotHandled()?.let {errorMessage ->
-//                Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
-        finishedViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            showLoading(isLoading)
+        finishedViewModel.isLoading.observe(viewLifecycleOwner) {loading ->
+            showLoading(loading)
         }
 
-
         return root
+
     }
+
 
 
 
@@ -76,6 +70,8 @@ class FinishedFragment : Fragment() {
         adapter.submitList(listEvent)
         binding.rvEvent.adapter = adapter
     }
+
+
 
     private suspend fun toggleFavorite(event: EventEntity) {
         if (event.isFavorite) {

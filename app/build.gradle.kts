@@ -67,5 +67,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.datastore.preferences)
 
 }
