@@ -2,7 +2,6 @@ package com.bangkit.eventdicodingapp.ui.fragment
 
 import android.Manifest
 import android.os.Build
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +10,8 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.ui.window.application
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.data.local.datastore.SettingPreferences
 import com.bangkit.eventdicodingapp.data.local.datastore.dataStore
 import com.bangkit.eventdicodingapp.databinding.FragmentSettingBinding

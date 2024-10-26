@@ -7,27 +7,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.eventdicodingapp.R
 import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.databinding.FragmentFavoriteBinding
-import com.bangkit.eventdicodingapp.databinding.FragmentUpcomingBinding
 import com.bangkit.eventdicodingapp.ui.DetailActivity
 import com.bangkit.eventdicodingapp.ui.adapter.EventLargeAdapter
-import com.bangkit.eventdicodingapp.ui.adapter.EventSmallAdapter
 import com.bangkit.eventdicodingapp.ui.factory.FavoriteModelFactory
-import com.bangkit.eventdicodingapp.ui.factory.UpcomingModelFactory
 import com.bangkit.eventdicodingapp.ui.model.FavoriteViewModel
-import com.bangkit.eventdicodingapp.ui.model.UpcomingViewModel
 import kotlinx.coroutines.launch
 
 class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
 
-    private val favoriteViewModel by viewModels<FavoriteViewModel>(){
+    private val favoriteViewModel by viewModels<FavoriteViewModel>{
         FavoriteModelFactory.getInstance(requireActivity())
     }
 

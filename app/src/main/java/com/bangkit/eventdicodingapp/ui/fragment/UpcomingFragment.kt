@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.databinding.FragmentUpcomingBinding
@@ -23,7 +22,7 @@ class UpcomingFragment : Fragment() {
 
     private var _binding: FragmentUpcomingBinding? = null
 
-    private val upcomingViewModel by viewModels<UpcomingViewModel>(){
+    private val upcomingViewModel by viewModels<UpcomingViewModel>{
         UpcomingModelFactory.getInstance(requireActivity())
     }
 

@@ -1,6 +1,5 @@
 package com.bangkit.eventdicodingapp.ui.model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +11,6 @@ import com.bangkit.eventdicodingapp.util.EventWrapper
 
 class UpcomingViewModel(private val eventRepository: EventRepository) : ViewModel() {
 
-    companion object {
-        private const val TAG = "UpcomingViewModel"
-    }
 
     private val _listEvent = MutableLiveData<List<EventEntity>>()
     val listEvent: LiveData<List<EventEntity>> = _listEvent

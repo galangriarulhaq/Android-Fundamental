@@ -2,18 +2,18 @@
     <!-- Base application theme. -->
     <style name="Theme.EventDicodingApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/md_theme_primary</item>
-        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
-        <item name="colorSecondary">@color/md_theme_secondary</item>
-        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
-        <item name="colorTertiary">@color/md_theme_tertiary</item>
-        <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
-        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
-        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
+        <item name="colorPrimary">@color/md_theme_primary_night</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary_night</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer_night</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer_night</item>
+        <item name="colorSecondary">@color/md_theme_secondary_night</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary_night</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer_night</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer_night</item>
+        <item name="colorTertiary">@color/md_theme_tertiary_night</item>
+        <item name="colorOnTertiary">@color/md_theme_onTertiary_night</item>
+        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer_night</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer_night</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>

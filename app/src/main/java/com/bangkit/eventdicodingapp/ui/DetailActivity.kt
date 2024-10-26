@@ -19,7 +19,7 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
 
-    private val detailViewModel by viewModels<DetailViewModel>(){
+    private val detailViewModel by viewModels<DetailViewModel>{
         DetailModelFactory.getInstance(this)
     }
 

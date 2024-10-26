@@ -40,11 +40,9 @@ class EventRepository private constructor(
                 )
             }
 
-            // Update local database
             eventDao.deleteUpcomingAll()
             eventDao.insertEvent(eventList)
 
-            // Emit local data after saving it
             val localData: LiveData<Result<List<EventEntity>>> =
                 eventDao.getEventUpcoming().map { Result.Success(it) }
             emitSource(localData)
@@ -57,7 +55,6 @@ class EventRepository private constructor(
     fun fetchFinishedEvents(): LiveData<Result<List<EventEntity>>> = liveData {
         emit(Result.Loading)
         try {
-            // Fetch data from remote
             val response = apiService.getEventFinished()
             val events = response.listEvents
             val eventList = events.map { event ->
@@ -77,11 +74,9 @@ class EventRepository private constructor(
                 )
             }
 
-            // Update local database
             eventDao.deleteFinishedAll()
             eventDao.insertEvent(eventList)
 
-            // Emit local data after saving it
             val localData: LiveData<Result<List<EventEntity>>> =
                 eventDao.getEventFinished().map { Result.Success(it) }
             emitSource(localData)

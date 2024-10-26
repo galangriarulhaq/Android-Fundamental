@@ -14,6 +14,7 @@
         android:text="@string/title_favorite"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:fontFamily="@font/inter"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/rv_favorite"
         app:layout_constraintEnd_toEndOf="parent"

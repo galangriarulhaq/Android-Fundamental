@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class FinishedFragment : Fragment() {
 
     private var _binding: FragmentFinishedBinding? = null
-    private val finishedViewModel by viewModels<FinishedViewModel>(){
+    private val finishedViewModel by viewModels<FinishedViewModel>{
         FinishedModelFactory.getInstance(requireActivity())
     }
 

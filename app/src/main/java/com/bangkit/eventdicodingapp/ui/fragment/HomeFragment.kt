@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private val homeViewModel by viewModels<HomeViewModel>(){
+    private val homeViewModel by viewModels<HomeViewModel>{
         HomeModelFactory.getInstance(requireActivity())
     }
 

@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.eventdicodingapp.R
-import com.bangkit.eventdicodingapp.data.local.entity.EventEntity
 import com.bangkit.eventdicodingapp.data.remote.response.ListEventsItem
 import com.bangkit.eventdicodingapp.databinding.ItemEventLargeBinding
 import com.bumptech.glide.Glide
-import com.google.android.material.button.MaterialButton
 
 class EventSearchAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<ListEventsItem, EventSearchAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: ItemEventLargeBinding, private val onItemClick: (Int) -> Unit): RecyclerView.ViewHolder(binding.root) {
@@ -34,12 +32,12 @@ class EventSearchAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<Li
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): EventSearchAdapter.MyViewHolder {
+    ): MyViewHolder {
         val binding = ItemEventLargeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return EventSearchAdapter.MyViewHolder(binding, onItemClick)
+        return MyViewHolder(binding, onItemClick)
     }
 
-    override fun onBindViewHolder(holder: EventSearchAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
 

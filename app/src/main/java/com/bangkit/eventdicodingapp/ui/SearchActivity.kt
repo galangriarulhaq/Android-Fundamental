@@ -19,7 +19,7 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
 
-    private val searchViewModel by viewModels<SearchViewModel>(){
+    private val searchViewModel by viewModels<SearchViewModel>{
         SearchModelFactory.getInstance(this)
     }
 
