@@ -40,9 +40,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/upcoming_event"
-                android:textStyle="bold"
+                android:fontFamily="@font/inter"
                 android:textSize="16sp"
-                android:textColor="@color/purple_700"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/rv_event_upcoming" />
@@ -69,9 +68,8 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/finished_event"
-                android:textStyle="bold"
+                android:fontFamily="@font/inter"
                 android:textSize="16sp"
-                android:textColor="@color/purple_700"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rv_event_upcoming"
                 app:layout_constraintBottom_toTopOf="@id/rv_event_finished" />

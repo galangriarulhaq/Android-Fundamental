@@ -43,11 +43,11 @@ class DetailActivity : AppCompatActivity() {
             setEventData(event)
         }
 
-//        detailViewModel.errorMessage.observe(this) {
-//            it.getContentIfNotHandled()?.let {errorMessage ->
-//                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-//            }
-//        }
+        detailViewModel.errorMessage.observe(this) {
+            it.getContentIfNotHandled()?.let {errorMessage ->
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
 
         detailViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
@@ -87,7 +87,19 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.btnRegister.visibility = View.GONE
+            binding.tvInformation.visibility = View.GONE
+            binding.cardCategory.visibility = View.GONE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.btnRegister.visibility = View.VISIBLE
+            binding.tvInformation.visibility = View.VISIBLE
+            binding.cardCategory.visibility = View.VISIBLE
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
