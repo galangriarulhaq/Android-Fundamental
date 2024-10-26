@@ -39,6 +39,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_upcoming, R.id.navigation_finished, R.id.navigation_favorite, R.id.navigation_setting
             )
         )
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.navigation_favorite || destination.id == R.id.navigation_setting) { // Sesuaikan dengan ID Fragment tujuan
+                supportActionBar?.hide()
+            } else {
+                supportActionBar?.show()
+            }
+        }
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

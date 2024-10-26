@@ -47,8 +47,8 @@
             android:id="@+id/card_category"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginVertical="8dp"
             app:cardBackgroundColor="@color/grey"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
@@ -82,25 +82,16 @@
             card_view:layout_constraintBottom_toBottomOf="parent"
             tools:text="@string/owner_event" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_fav"
+        <ImageView
+            android:id="@+id/iv_fav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="16dp"
-            android:drawablePadding="8dp"
-            android:elevation="0dp"
-            android:gravity="center"
-            android:text="@string/favorite"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            app:cornerRadius="8dp"
-            app:icon="@drawable/baseline_favorite_border_24"
-            app:iconGravity="textStart"
-            card_view:layout_constraintBottom_toTopOf="@+id/tv_event"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/img_event" />
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginVertical="8dp"
+            android:contentDescription="@string/title_favorite"
+            android:src="@drawable/baseline_favorite_border_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

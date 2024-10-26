@@ -3,6 +3,8 @@ package com.bangkit.eventdicodingapp.ui.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -41,15 +43,15 @@ class EventSmallAdapter(private val onItemClick: (Int) -> Unit, private val onFa
         val event = getItem(position)
         holder.bind(event)
 
-        val btnFav = holder.itemView.findViewById<MaterialButton>(R.id.btn_fav)
+        val ivFav = holder.itemView.findViewById<ImageView>(R.id.iv_fav)
 
         if (event.isFavorite) {
-            btnFav.setIconResource(R.drawable.baseline_favorite_24)
+            ivFav.setImageDrawable(ContextCompat.getDrawable(ivFav.context, R.drawable.baseline_favorite_24))
         } else {
-            btnFav.setIconResource(R.drawable.baseline_favorite_border_24)
+            ivFav.setImageDrawable(ContextCompat.getDrawable(ivFav.context, R.drawable.baseline_favorite_border_24))
         }
 
-        btnFav.setOnClickListener {
+        ivFav.setOnClickListener {
             onFavoriteClick(event)
         }
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -42,9 +43,9 @@ class EventSearchAdapter(private val onItemClick: (Int) -> Unit): ListAdapter<Li
         val event = getItem(position)
         holder.bind(event)
 
-        val btnFav = holder.itemView.findViewById<MaterialButton>(R.id.btn_fav)
+        val ivFav = holder.itemView.findViewById<ImageView>(R.id.iv_fav)
 
-        btnFav.visibility = View.GONE
+        ivFav.visibility = View.GONE
     }
 
     companion object {
