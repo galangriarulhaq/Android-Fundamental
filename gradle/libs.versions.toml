@@ -25,7 +25,7 @@ roomKtx = "2.6.1"
 roomRuntime = "2.5.2"
 roomCompiler = "2.5.2"
 uiDesktop = "1.7.0"
-workRuntime = "2.8.1"
+workRuntime = "2.9.1"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }

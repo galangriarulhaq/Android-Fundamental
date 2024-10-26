@@ -24,4 +24,10 @@ interface ApiService {
         @Query("q") keyword: String
     ): EventResponse
 
+    @GET("events")
+    suspend fun getEventReminder(
+        @Query("active") active: Int = 1,
+        @Query("limit") limit: Int = 1
+    ): EventResponse
+
 }
